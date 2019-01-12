@@ -1,0 +1,6 @@
+account		include		base-account
+
+auth		required	pam_env.so
+auth		required	pam_nologin.so	successok
+auth		sufficient	/lib64/security/pam_duo.so
+auth		required	pam_deny.so

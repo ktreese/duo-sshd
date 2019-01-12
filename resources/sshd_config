@@ -1,0 +1,15 @@
+AuthorizedKeysFile	.ssh/authorized_keys /etc/authorized_keys/%u
+AuthenticationMethods publickey,keyboard-interactive
+
+ChallengeResponseAuthentication yes
+
+PermitRootLogin yes
+PubkeyAuthentication yes
+PasswordAuthentication no
+
+Port 22
+
+UseDNS no
+UsePAM yes
+
+Subsystem	sftp	/usr/lib/ssh/sftp-server
