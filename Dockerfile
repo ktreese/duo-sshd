@@ -13,9 +13,14 @@ COPY resources/sshd_config /etc/ssh/
 COPY resources/pam.d/sshd /etc/pam.d/
 
 ADD https://dl.duosecurity.com/duo_unix-latest.tar.gz /root
-RUN tar zxvf duo_unix-latest.tar.gz
-RUN cd ./duo*; ./configure --with-pam --prefix=/usr && make && sudo make install
-RUN sed -i '/host/a ; enable autopush\nautopush = yes' /etc/duo/pam_duo.conf
+
+RUN tar zxvf duo_unix-latest.tar.gz \
+ && cd ./duo* \
+ && ./configure --with-pam --prefix=/usr \
+ && make \
+ && sudo make install \
+ && sed -i '/host = /a ; enable autopush\nautopush = yes' /etc/duo/pam_duo.conf \
+ && sed -i '/autopush = /a ; limit prompts to 1\nprompts = 1' /etc/duo/pam_duo.conf
 
 EXPOSE 22
 
